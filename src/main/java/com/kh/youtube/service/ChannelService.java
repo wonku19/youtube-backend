@@ -15,7 +15,6 @@ public class ChannelService {
     @Autowired
     private ChannelDAO channelDAO;
 
-
     @Autowired
     private MemberDAO memberDAO;
 
@@ -23,10 +22,9 @@ public class ChannelService {
         return channelDAO.findAll();
     }
 
-    public Channel show(int id){
+    public Channel show(int id) {
         Channel channel = channelDAO.findById(id).orElse(null);
-        Member member = memberDAO.findById(channel.getMember().getId()).orElse(null
-        );
+        Member member = memberDAO.findById(channel.getMember().getId()).orElse(null);
         channel.setMember(member);
         return channel;
     }
