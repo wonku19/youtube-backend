@@ -34,7 +34,7 @@ public class VideoController {
     }
 
     // 영상 수정 : PUT - http://localhost:8080/api/video
-    @PostMapping("/video")
+    @PutMapping("/video")
     public ResponseEntity<Video> updateVideo(@RequestBody Video vo) {
         return ResponseEntity.status(HttpStatus.OK).body(video.update(vo));
     }
