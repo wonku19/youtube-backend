@@ -1,6 +1,7 @@
 package com.kh.youtube.controller;
 
 import com.kh.youtube.domain.Channel;
+import com.kh.youtube.domain.Member;
 import com.kh.youtube.domain.Subscribe;
 import com.kh.youtube.domain.Video;
 import com.kh.youtube.service.ChannelService;
@@ -10,8 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/*")
@@ -26,6 +33,9 @@ public class ChannelController {
     @Autowired
     private SubscribeService subscribe;
 
+    @Autowired
+    private String uploadPath;
+
     // 채널 조회 : GET - http://localhost:8080/api/channel/1
     @GetMapping("/channel/{id}")
     public ResponseEntity<Channel> showChannel(@PathVariable int id) {
@@ -39,7 +49,30 @@ public class ChannelController {
 
     // 채널 추가 : POST - http://localhost:8080/api/channel
     @PostMapping("/channel")
-    public ResponseEntity<Channel> createChannel(@RequestBody Channel vo) {
+    public ResponseEntity<Channel> createChannel(MultipartFile photo, String name, String desc) {
+
+        String originalImage = photo.getOriginalFilename();
+        String realImage = originalImage.substring(originalImage.lastIndexOf("\\")+1);
+        String uuid = UUID.randomUUID().toString();
+        String saveImage = uploadPath + File.separator + uuid + "_" + realImage;
+        Path pathImage = Paths.get(saveImage);
+
+        try {
+            photo.transferTo(pathImage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // 파일 업로드가 끝났으니 경로 (savePhoto), name, desc, memberId (id)
+//        return ResponseEntity.status(HttpStatus.OK).build();
+        Channel vo = new Channel();
+        vo.setChannelPhoto(saveImage);
+        vo.setChannelName(name);
+        vo.setChannelDesc(desc);
+
+        Member member = new Member();
+        member.setId("user1");
+        vo.setMember(member);
         return ResponseEntity.status(HttpStatus.OK).body(channel.create(vo));
     }
 
@@ -72,5 +105,7 @@ public class ChannelController {
     public ResponseEntity<Subscribe> deleteSubscribe(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.OK).body(subscribe.delete(id));
     }
+
+
 
 }
