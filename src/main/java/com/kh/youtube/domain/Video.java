@@ -51,7 +51,4 @@ public class Video {
 	@JoinColumn(name = "id")
 	private Member member;
 
-	@Column(name = "upload_path")
-	private String uploadPath;
-
 }

@@ -8,6 +8,7 @@ import com.kh.youtube.service.ChannelService;
 import com.kh.youtube.service.SubscribeService;
 import com.kh.youtube.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class ChannelController {
     @Autowired
     private SubscribeService subscribe;
 
-    @Autowired
+    @Value("${youtube.upload.path}")
     private String uploadPath;
 
     // 채널 조회 : GET - http://localhost:8080/api/channel/1
@@ -66,7 +67,7 @@ public class ChannelController {
         // 파일 업로드가 끝났으니 경로 (savePhoto), name, desc, memberId (id)
 //        return ResponseEntity.status(HttpStatus.OK).build();
         Channel vo = new Channel();
-        vo.setChannelPhoto(saveImage);
+        vo.setChannelPhoto(uuid + "_" + realImage);
         vo.setChannelName(name);
         vo.setChannelDesc(desc);
 

@@ -37,8 +37,4 @@ public class Channel {
 	@JoinColumn(name="id") // 외래키 생성 or Member 엔티티의 기본키와 매핑
 	private Member member;
 
-	@ManyToOne
-	@JoinColumn(name="upload_path")
-	private Video uploadPath;
-
 }

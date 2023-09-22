@@ -2,6 +2,7 @@ package com.kh.youtube.service;
 
 import com.kh.youtube.domain.Video;
 import com.kh.youtube.repo.*;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +16,10 @@ public class VideoService {
     @Autowired
     private VideoDAO dao;
 
-    public Page<Video> showAll(Pageable pageable) {
+    public Page<Video> showAll(Pageable pageable, BooleanBuilder builder) {
         // dao.findAll() -> List<Video> 리턴
         // dao.findAll(pageable) -> Page<Video> 리턴
-        return dao.findAll(pageable);
+        return dao.findAll(builder, pageable)  ;
     }
 
     public Video show(int id) {
