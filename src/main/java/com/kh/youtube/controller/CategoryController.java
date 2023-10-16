@@ -17,50 +17,48 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
-    @GetMapping("/category")
-    public ResponseEntity<List<Category>> showAll(){
+    @GetMapping("/public/category")
+    public ResponseEntity<List<Category>> showAll() {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.showAll());
-        } catch (Exception e){
+        } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-    @GetMapping("/category/{id}")
-    public ResponseEntity<Category> show(@PathVariable int id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.show(id));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-    @PostMapping ("/category")
-    public ResponseEntity<Category> create(@RequestBody Category category){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.create(category));
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Category> show(@PathVariable int id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.show(id));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @PostMapping("/category")
+    public ResponseEntity<Category> create(@RequestBody Category category) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.create(category));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @PutMapping("/category")
-    public ResponseEntity<Category> update(@RequestBody Category category){
-        try{
+    public ResponseEntity<Category> update(@RequestBody Category category) {
+        try {
             return ResponseEntity.status(HttpStatus.OK).body(service.update(category));
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
-    @DeleteMapping("/category/{id}")
-    public ResponseEntity<Category> delete(@PathVariable int id){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.delete(id));
-        }catch (Exception e){
-            e.printStackTrace();
+        } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
+    @DeleteMapping("/category/{id}")
+    public ResponseEntity<Category> delete(@PathVariable int id) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.delete(id));
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 }

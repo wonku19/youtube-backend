@@ -18,7 +18,7 @@ public class ChannelService {
     @Autowired
     private MemberDAO memberDAO;
 
-    public List<Channel> showAll(){
+    public List<Channel> showAll() {
         return channelDAO.findAll();
     }
 
@@ -29,19 +29,19 @@ public class ChannelService {
         return channel;
     }
 
-    public Channel create(Channel channel){
+    public Channel create(Channel channel) {
         return channelDAO.save(channel);
     }
 
-    public Channel update(Channel channel){
+    public Channel update(Channel channel) {
         Channel target = channelDAO.findById(channel.getChannelCode()).orElse(null);
-        if(target!=null){
+        if(target!=null) {
             return channelDAO.save(channel);
         }
         return null;
     }
 
-    public Channel delete(int id){
+    public Channel delete(int id) {
         Channel target = channelDAO.findById(id).orElse(null);
         channelDAO.delete(target);
         return target;

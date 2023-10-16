@@ -16,15 +16,15 @@ public class TokenProvider {
     private static final String SECRET_KEY="FlRpX30MqDbiAkmlfArbrmVkDD4RqISskGZmBFax5oGVxzXXWUzTR5JyskiHMIV9M10icegkpi46AdvrcX1E6CmTUBc6IFbTPiD";
 
     public String create(Member member) {
-        // 토큰 생성 -> 기한 지정 가능 (1일까지로 지정)
-        Date expriyDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
+        // 토큰 생성 -> 기한 지정 가능 (1일)
+        Date expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
 
         return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS512, SECRET_KEY) // header 에 들어갈 내용
-                .setSubject(member.getId()) // <-- 여기부터는 payload에 들어갈 내용
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY) // header에 들어갈 내용
+                .setSubject(member.getId()) // <-- 여기부터 payload에 들어갈 내용
                 .setIssuer("youtube app")
                 .setIssuedAt(new Date())
-                .setExpiration(expriyDate)
+                .setExpiration(expiryDate)
                 .compact();
     }
 

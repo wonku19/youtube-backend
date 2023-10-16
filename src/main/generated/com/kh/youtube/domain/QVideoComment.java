@@ -32,7 +32,9 @@ public class QVideoComment extends EntityPathBase<VideoComment> {
 
     public final QMember member;
 
-    public final QVideo video;
+    public final QVideoComment parent;
+
+    public final NumberPath<Integer> videoCode = createNumber("videoCode", Integer.class);
 
     public QVideoComment(String variable) {
         this(VideoComment.class, forVariable(variable), INITS);
@@ -53,8 +55,7 @@ public class QVideoComment extends EntityPathBase<VideoComment> {
     public QVideoComment(Class<? extends VideoComment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
-        this.video = inits.isInitialized("video") ? new QVideo(forProperty("video"), inits.get("video")) : null;
+        this.parent = inits.isInitialized("parent") ? new QVideoComment(forProperty("parent"), inits.get("parent")) : null;
     }
 
 }
-

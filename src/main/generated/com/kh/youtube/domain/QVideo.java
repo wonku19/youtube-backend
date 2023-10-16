@@ -28,8 +28,6 @@ public class QVideo extends EntityPathBase<Video> {
 
     public final QMember member;
 
-    public final StringPath uploadPath = createString("uploadPath");
-
     public final NumberPath<Integer> videoCode = createNumber("videoCode", Integer.class);
 
     public final DateTimePath<java.util.Date> videoDate = createDateTime("videoDate", java.util.Date.class);
@@ -68,4 +66,3 @@ public class QVideo extends EntityPathBase<Video> {
     }
 
 }
-

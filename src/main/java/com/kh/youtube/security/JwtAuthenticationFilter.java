@@ -25,13 +25,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter { // 한 번�
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // 요청에서 토큰을 가져오기
+        // 요청에서 토큰 가져오기
         String token = parseBearerToken(request);
         // 토큰 검사
         if(token!=null && !token.equalsIgnoreCase("null")) {
             // Member -> id
             String id = tokenProvider.validateAndGetUserId(token);
-            // 인증 완료 SecurityContextHoler에 등록 (인증된 사용자라는거)
+            // 인증 완료 SecurityContextHolder에 등록
             AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     id, // 인증된 사용자 정보
                     null,
@@ -46,12 +46,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter { // 한 번�
     }
 
     private String parseBearerToken(HttpServletRequest request) {
-        // Http 요청의 헤더를 파싱해 Bearer 토큰을 리턴한다
+        // Http 요청의 헤더를 파싱해 Bearer 토큰을 리턴한다.
         String bearerToken = request.getHeader("Authorization");
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;
     }
-
 }

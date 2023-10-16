@@ -1,5 +1,7 @@
 package com.kh.youtube.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,30 +15,31 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Video {
 
 	@Id
-	@Column(name = "video_code")
+	@Column(name="video_code")
 	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "videoSequence")
-	@SequenceGenerator(name = "videoSequence", sequenceName = "SEQ_VIDEO", allocationSize = 1)
+	@SequenceGenerator(name="videoSequence", sequenceName = "SEQ_VIDEO", allocationSize = 1)
 	private int videoCode;
 
-	@Column(name = "video_title")
+	@Column(name="video_title")
 	private String videoTitle;
 
-	@Column(name = "video_desc")
+	@Column(name="video_desc")
 	private String videoDesc;
 
-	@Column(name = "video_date")
+	@Column(name="video_date")
 	private Date videoDate;
 
-	@Column(name = "video_views")
+	@Column(name="video_views")
 	private int videoViews;
 
-	@Column(name = "video_url")
+	@Column(name="video_url")
 	private String videoUrl;
 
-	@Column(name = "video_photo")
+	@Column(name="video_photo")
 	private String videoPhoto;
 
 	@ManyToOne
@@ -44,11 +47,10 @@ public class Video {
 	private Category category;
 
 	@ManyToOne
-	@JoinColumn(name = "channel_code")
+	@JoinColumn(name="channel_code")
 	private Channel channel;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name="id")
 	private Member member;
-
 }

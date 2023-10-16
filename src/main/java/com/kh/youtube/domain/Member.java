@@ -1,5 +1,7 @@
 package com.kh.youtube.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,8 +17,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
-@DynamicUpdate
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Member {
 
 	@Id
@@ -30,6 +32,5 @@ public class Member {
 
 	@Column
 	private String authority;
-
 
 }

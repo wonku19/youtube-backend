@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/*")
+@CrossOrigin(origins={"*"}, maxAge = 6000)
 public class MemberController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class MemberController {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // 회원가입
-    @PostMapping("/signup")
+    @PostMapping("/user/signup")
     public ResponseEntity register(@RequestBody MemberDTO dto) {
         // 비밀번호 -> 암호화 처리 + 저장할 유저 만들기
         Member member = Member.builder()
@@ -49,7 +49,7 @@ public class MemberController {
     }
 
     // 로그인 -> token
-    @PostMapping("/signin")
+    @PostMapping("/user/signin")
     public ResponseEntity authenticate(@RequestBody MemberDTO dto) {
         Member member = service.getByCredentials(dto.getId(), dto.getPassword(), passwordEncoder);
         if(member!=null) { // -> 토큰 생성
@@ -64,5 +64,4 @@ public class MemberController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 }

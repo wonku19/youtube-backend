@@ -13,23 +13,24 @@ public class CategoryService {
     @Autowired
     private CategoryDAO dao;
 
-    public List<Category> showAll(){
+    public List<Category> showAll() {
         return dao.findAll();
     }
 
-    public Category show(int code){
+    public Category show(int code) {
         return dao.findById(code).orElse(null);
     }
 
-    public Category create(Category category){
+    public Category create(Category category) {
         return dao.save(category);
     }
 
-    public Category update(Category category){
+    public Category update(Category category) {
+
         return dao.save(category);
     }
 
-    public Category delete(int code){
+    public Category delete(int code) {
         Category data = dao.findById(code).orElse(null);
         dao.delete(data);
         return data;

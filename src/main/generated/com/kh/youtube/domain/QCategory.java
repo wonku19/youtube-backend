@@ -36,4 +36,3 @@ public class QCategory extends EntityPathBase<Category> {
     }
 
 }
-

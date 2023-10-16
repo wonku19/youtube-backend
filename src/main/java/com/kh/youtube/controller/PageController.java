@@ -13,8 +13,8 @@ public class PageController {
     private CategoryService category;
 
     @GetMapping("/")
-    public String index(Model model){
-        model.addAttribute("category",category.showAll());
+    public String index(Model model) {
+        model.addAttribute("category", category.showAll());
         return "index";
     }
 

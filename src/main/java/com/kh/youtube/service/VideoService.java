@@ -1,7 +1,9 @@
 package com.kh.youtube.service;
 
 import com.kh.youtube.domain.Video;
-import com.kh.youtube.repo.*;
+import com.kh.youtube.domain.VideoComment;
+import com.kh.youtube.repo.VideoCommentDAO;
+import com.kh.youtube.repo.VideoDAO;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,9 +19,9 @@ public class VideoService {
     private VideoDAO dao;
 
     public Page<Video> showAll(Pageable pageable, BooleanBuilder builder) {
-        // dao.findAll() -> List<Video> 리턴
-        // dao.findAll(pageable) -> Page<Video> 리턴
-        return dao.findAll(builder, pageable)  ;
+        // dao.findAll() -> List<Video>
+        // dao.findAll(pageable) -> Page<Video>
+        return dao.findAll(builder, pageable);
     }
 
     public Video show(int id) {
@@ -47,5 +49,4 @@ public class VideoService {
     public List<Video> findByChannelCode(int code) {
         return dao.findByChannelCode(code);
     }
-
 }
